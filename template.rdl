@@ -244,6 +244,6 @@
     </ReportSection>
   </ReportSections>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportServerUrl>https://sqlstudentrecs.houghton.edu/ReportsWebService</rd:ReportServerUrl>
-  <rd:ReportID>a6dad5b4-2d1b-4123-b69e-32981a8be347</rd:ReportID>
+  <rd:ReportServerUrl>{{ server_url }}</rd:ReportServerUrl>
+  <rd:ReportID>{{ report_id }}</rd:ReportID>
 </Report>

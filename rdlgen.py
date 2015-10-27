@@ -8,8 +8,9 @@ class RDL():
     query = ''
     fields = []
     
-    def __init__(self,datasource,query,template='template.rdl'):
+    def __init__(self,server_url,datasource,query,template='template.rdl'):
         self.query = query
+        self.server_url = server_url
         self.datasource = datasource
         self.template = template
         
@@ -22,7 +23,9 @@ class RDL():
                 query=self.query,
                 data_source_reference=self.datasource,
                 data_source_id=self.gen_id(),
-                fields=self.fields
+                fields=self.fields,
+                server_url = self.server_url,
+                report_id = self.gen_id(),
             )
     
     def write_file(self,filename):
@@ -46,13 +49,14 @@ if __name__ == '__main__':
     import sys
     
     try:
-        datasource = '/' + str(sys.argv[1])
+        server_url = str(sys.argv[1])
+        datasource = '/' + str(sys.argv[2])
         query = str(sys.stdin.read())
     except:
-        print 'Usage: %s [datasource]\nSQL query is supplied on stdin' % (sys.argv[0],)
+        print 'Usage: %s [server_url] [datasource]\nSQL query is supplied on stdin' % (sys.argv[0],)
         exit(1)
     
-    rdl = RDL(datasource,query)
+    rdl = RDL(server_url,datasource,query)
 
     rdl.write_file("output.rdl")
     print "Output written to output.rdl"

@@ -4,7 +4,7 @@ A Python utility to generate an SSRS-compatible [RDL](https://msdn.microsoft.com
 
 ## Usage
 
-    python genrdl.py [datasource] < sqlfile.sql
+    python rdlgen.py [server_url] [datasource] < sqlfile.sql
 
 The SQL file is read from stdin, and a report containing all of the fields from the query in a simple table is created.
 
