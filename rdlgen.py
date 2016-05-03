@@ -38,8 +38,18 @@ class RDL():
         m = re.match(r'select (.*?) from', self.query, flags=re.IGNORECASE)
         
         for field in m.group(1).split(','):
+            names = field.split('as')
+            
+            name = names[0]
+            
+            if len(names) > 1:
+                name = names[1]
+            
+            name = name.replace('\'','')
+            name = name.strip()
+            
             self.fields.append({
-                "name":field.strip()
+                "name":name
             })
             
     def gen_id(self,size=16,chars=string.ascii_uppercase + string.digits):
