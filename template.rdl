@@ -11,6 +11,13 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
+        <QueryParameters>
+          {% for parameter in parameters %}
+            <QueryParameter Name="@{{ parameter }}">
+              <Value>=Parameters!{{ parameter }}.Value</Value>
+            </QueryParameter>
+          {% endfor %}
+        </QueryParameters>
         <DataSourceName>DataSource1</DataSourceName>
         <CommandText>{{ query }}</CommandText>
       </Query>
@@ -243,6 +250,15 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+  {% for parameter in parameters %}
+    <ReportParameter Name="{{ parameter }}">
+      <DataType>String</DataType>
+      <Prompt>{{ parameter }}</Prompt>
+    </ReportParameter>
+  {% endfor %}
+  </ReportParameters>
+
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportServerUrl>{{ server_url }}</rd:ReportServerUrl>
   <rd:ReportID>{{ report_id }}</rd:ReportID>

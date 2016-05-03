@@ -7,6 +7,7 @@ import random
 class RDL():
     query = ''
     fields = []
+    paramters = []
     
     def __init__(self,server_url,datasource,query,template='template.rdl'):
         self.query = query
@@ -14,6 +15,7 @@ class RDL():
         self.datasource = datasource
         self.template = template
         
+        self.init_parameters()
         self.init_fields()
         
     def get_text(self,):
@@ -24,6 +26,7 @@ class RDL():
                 data_source_reference=self.datasource,
                 data_source_id=self.gen_id(),
                 fields=self.fields,
+                parameters=self.parameters,
                 server_url = self.server_url,
                 report_id = self.gen_id(),
             )
@@ -51,6 +54,11 @@ class RDL():
             self.fields.append({
                 "name":name
             })
+  
+    def init_parameters(self):
+        matches = re.findall(r'@.*?[ \n\r]', self.query, flags=re.MULTILINE)
+
+        self.parameters = [m.strip().replace('@','') for m in matches]
             
     def gen_id(self,size=16,chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choice(chars) for _ in range(size))
