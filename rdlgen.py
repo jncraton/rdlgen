@@ -5,9 +5,6 @@ import string
 import random
 
 class RDL():
-    query = ''
-    fields = []
-    paramters = []
     
     def __init__(self,server_url,datasource,query,template='template.rdl'):
         self.query = query
@@ -15,6 +12,9 @@ class RDL():
         self.datasource = datasource
         self.template = template
         
+        self.fields = []
+        self.paramters = []
+
         self.init_parameters()
         self.init_fields()
         

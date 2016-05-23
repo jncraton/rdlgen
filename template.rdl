@@ -11,6 +11,7 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
+        {% if parameters %}
         <QueryParameters>
           {% for parameter in parameters %}
             <QueryParameter Name="@{{ parameter }}">
@@ -18,6 +19,7 @@
             </QueryParameter>
           {% endfor %}
         </QueryParameters>
+        {% endif %}
         <DataSourceName>DataSource1</DataSourceName>
         <CommandText>{{ query }}</CommandText>
       </Query>
@@ -250,14 +252,16 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParameters>
-  {% for parameter in parameters %}
-    <ReportParameter Name="{{ parameter }}">
-      <DataType>String</DataType>
-      <Prompt>{{ parameter }}</Prompt>
-    </ReportParameter>
-  {% endfor %}
-  </ReportParameters>
+  {% if parameters %}
+    <ReportParameters>
+    {% for parameter in parameters %}
+      <ReportParameter Name="{{ parameter }}">
+        <DataType>String</DataType>
+        <Prompt>{{ parameter }}</Prompt>
+      </ReportParameter>
+    {% endfor %}
+    </ReportParameters>
+  {% endif %}
 
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportServerUrl>{{ server_url }}</rd:ReportServerUrl>
