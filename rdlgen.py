@@ -40,7 +40,7 @@ class RDL():
     def init_fields(self):
         m = re.match(r'select(.*?)from', self.query, flags=re.IGNORECASE|re.MULTILINE|re.DOTALL)
         
-        for field in m.group(1).strip().split(','):
+        for field in m.group(1).strip().split(',\n'):
             names = field.split(' as ')
             
             name = names[0]
