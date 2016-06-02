@@ -58,7 +58,7 @@ class RDL():
     def init_parameters(self):
         matches = re.findall(r'@.*?[ \n\r]', self.query, flags=re.MULTILINE)
 
-        self.parameters = [m.strip().replace('@','') for m in matches]
+        self.parameters = set([m.strip().replace('@','') for m in matches])
             
     def gen_id(self,size=16,chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choice(chars) for _ in range(size))
