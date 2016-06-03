@@ -56,7 +56,7 @@ class RDL():
             })
   
     def init_parameters(self):
-        matches = re.findall(r'@.*?[ \n\r]', self.query, flags=re.MULTILINE)
+        matches = re.findall(r'@[a-zA-Z0-9_]*?[ \n\r]', self.query, flags=re.MULTILINE)
 
         self.parameters = set([m.strip().replace('@','') for m in matches])
             
