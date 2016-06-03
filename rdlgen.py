@@ -38,7 +38,7 @@ class RDL():
                 out_file.write(self.get_text())
     
     def init_fields(self):
-        m = re.match(r'select(.*?)from', self.query, flags=re.IGNORECASE|re.MULTILINE|re.DOTALL)
+        m = re.match(r'select(.*?)\nfrom', self.query, flags=re.IGNORECASE|re.MULTILINE|re.DOTALL)
         
         for field in m.group(1).strip().split(',\n'):
             names = field.split(' as ')
@@ -69,12 +69,13 @@ if __name__ == '__main__':
     try:
         server_url = str(sys.argv[1])
         datasource = '/' + str(sys.argv[2])
+        outfile = str(sys.argv[3])
         query = str(sys.stdin.read())
     except:
-        print 'Usage: %s [server_url] [datasource]\nSQL query is supplied on stdin' % (sys.argv[0],)
+        print 'Usage: %s [server_url] [datasource] [outfile]\nSQL query is supplied on stdin' % (sys.argv[0],)
         exit(1)
     
     rdl = RDL(server_url,datasource,query)
 
-    rdl.write_file("output.rdl")
-    print "Output written to output.rdl"
+    rdl.write_file(outfile)
+    print "Output written to %s" % outfile
